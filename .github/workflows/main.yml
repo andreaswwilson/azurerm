@@ -47,7 +47,7 @@ jobs:
 
     - name: Terraform Show
       id: show
-      run: terraform show -no-color tf.plan 2>&1 > /tmp/plan.txt
+      run: terraform show -no-color tf.plan
       env:
         ARM_ACCES_KEY: ${{ secrets.ACCESS_KEY}}
         ARM_CLIENT_ID: ${{ secrets.CLIENT_ID }} # This doesn't have to be a secret. Client IDs are not sensitive.
