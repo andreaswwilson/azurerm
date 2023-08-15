@@ -35,7 +35,8 @@ jobs:
 
     - name: Terraform Plan
       id: plan
-      run: terraform plan -no-color
+      run: |
+        terraform plan -input=false -no-color -out tf.plan
       env:
         ARM_ACCES_KEY: ${{ secrets.ACCESS_KEY}}
         ARM_CLIENT_ID: ${{ secrets.CLIENT_ID }} # This doesn't have to be a secret. Client IDs are not sensitive.
@@ -43,3 +44,13 @@ jobs:
         ARM_SUBSCRIPTION_ID: ${{ vars.SUBSCRIPTION_ID}} 
         ARM_TENANT_ID: ${{ vars.TENANT_ID}}
         continue-on-error: false
+
+    - name: Terraform Show
+      id: show
+      run: terraform show -no-color tf.plan 2>&1 > /tmp/plan.txt
+      env:
+        ARM_ACCES_KEY: ${{ secrets.ACCESS_KEY}}
+        ARM_CLIENT_ID: ${{ secrets.CLIENT_ID }} # This doesn't have to be a secret. Client IDs are not sensitive.
+        ARM_CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
+        ARM_SUBSCRIPTION_ID: ${{ vars.SUBSCRIPTION_ID}} 
+        ARM_TENANT_ID: ${{ vars.TENANT_ID}}
