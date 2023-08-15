@@ -16,6 +16,8 @@ resource "azurerm_storage_container" "tfstate" {
   container_access_type = "private"
 }
 
+########## Service principal
+data "azuread_client_config" "current" {}
 # Create Azure AD App
 resource "azuread_application" "app_contributor" {
   display_name = "sp-msp"
