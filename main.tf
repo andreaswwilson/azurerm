@@ -26,8 +26,8 @@ resource "azuread_application" "msp" {
 
 # Create Service Principal
 resource "azuread_service_principal" "msp" {
-  application_id = azuread_application.app_contributor.application_id
-  depends_on     = [azuread_application.app_contributor]
+  application_id = azuread_application.msp.application_id
+  depends_on     = [azuread_application.msp]
   owners         = [data.azuread_client_config.current.object_id]
 }
 
