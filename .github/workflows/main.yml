@@ -29,10 +29,14 @@ jobs:
 
     - name: Terraform Plan
       id: plan
-      run: terraform plan -no-color
+        #run: terraform plan -no-color
       env:
         ARM_CLIENT_ID: ${{ secrets.CLIENT_ID }} # This doesn't have to be a secret. Client IDs are not sensitive.
         ARM_CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
         ARM_SUBSCRIPTION_ID: ${{ vars.SUBSCRIPTION_ID}} 
         ARM_TENANT_ID: ${{ vars.TENANT_ID}}
         continue-on-error: false
+      run:
+        |
+        echo "repository variable : $ARM_TENANT_ID"
+        echo "organization variable : $ARM_SUBSCRIPTION_ID"
