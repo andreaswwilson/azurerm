@@ -15,3 +15,17 @@ resource "azurerm_storage_container" "tfstate" {
   storage_account_name  = azurerm_storage_account.sa.name
   container_access_type = "private"
 }
+
+# Create Azure AD App
+resource "azuread_application" "app_contributor" {
+  display_name = "sp-msp"
+  owners       = [data.azuread_client_config.current.object_id]
+}
+
+# Create Service Principal
+resource "azuread_service_principal" "sp_contributor" {
+  application_id = azuread_application.app_contributor.application_id
+  depends_on     = [azuread_application.app_contributor]
+  owners         = [data.azuread_client_config.current.object_id]
+}
+
