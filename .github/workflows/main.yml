@@ -21,6 +21,8 @@ jobs:
     - name: Terraform Init
       id: init
       run: terraform init
+      env:
+        ARM_ACCES_KEY: ${{ secrets.ACCESS_KEY}}
 
     - name: Terraform Validate
       id: validate
