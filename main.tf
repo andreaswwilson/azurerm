@@ -16,9 +16,10 @@ resource "azurerm_storage_container" "tfstate" {
   container_access_type = "private"
 }
 
-########## Service principal
+########## Service principal ########## 
 data "azuread_client_config" "current" {}
-# Create Azure AD App
+
+# Create Azure AD App -
 resource "azuread_application" "msp" {
   display_name = "sp-msp"
   owners       = [data.azuread_client_config.current.object_id]
@@ -31,3 +32,16 @@ resource "azuread_service_principal" "msp" {
   owners         = [data.azuread_client_config.current.object_id]
 }
 
+
+# Create Azure AD App -
+resource "azuread_application" "sp1" {
+  display_name = "sp-sp1"
+  owners       = [azuread_service_principal.msp.object_id]
+}
+
+# Create Service Principal
+resource "azuread_service_principal" "sp1" {
+  application_id = azuread_application.msp.application_id
+  depends_on     = [azuread_application.sp1]
+  owners         = [azuread_service_principal.msp.object_id]
+}
