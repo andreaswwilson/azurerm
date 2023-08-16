@@ -17,7 +17,7 @@ jobs:
       id: fmt
       run: terraform fmt -check -no-color
       continue-on-error: false
-    
+
     - name: Terraform Init
       id: init
       run: terraform init
@@ -25,7 +25,7 @@ jobs:
         ARM_ACCES_KEY: ${{ secrets.ACCESS_KEY}}
         ARM_CLIENT_ID: ${{ secrets.CLIENT_ID }} # This doesn't have to be a secret. Client IDs are not sensitive.
         ARM_CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
-        ARM_SUBSCRIPTION_ID: ${{ vars.SUBSCRIPTION_ID}} 
+        ARM_SUBSCRIPTION_ID: ${{ vars.SUBSCRIPTION_ID}}
         ARM_TENANT_ID: ${{ vars.TENANT_ID}}
 
     - name: Terraform Validate
@@ -41,7 +41,7 @@ jobs:
         ARM_ACCES_KEY: ${{ secrets.ACCESS_KEY}}
         ARM_CLIENT_ID: ${{ secrets.CLIENT_ID }} # This doesn't have to be a secret. Client IDs are not sensitive.
         ARM_CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
-        ARM_SUBSCRIPTION_ID: ${{ vars.SUBSCRIPTION_ID}} 
+        ARM_SUBSCRIPTION_ID: ${{ vars.SUBSCRIPTION_ID}}
         ARM_TENANT_ID: ${{ vars.TENANT_ID}}
         continue-on-error: false
 
