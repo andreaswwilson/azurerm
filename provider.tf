@@ -4,24 +4,23 @@ terraform {
       source  = "hashicorp/azurerm"
       version = "~>3.0"
     }
-    azuread = {
-      source  = "hashicorp/azuread"
-      version = ">2.39.0"
-    }
   }
   required_version = ">= 1.0"
 }
 
-
 provider "azurerm" {
   features {}
+  subscription_id     = "cec8d728-7497-4f8c-b344-87b95fcc6e92"
+  tenant_id           = "ad7e197d-b1f9-411a-8c1d-f7c87c21f636"
+  storage_use_azuread = "true"
 }
 
 terraform {
   backend "azurerm" {
-    resource_group_name  = "rg-storage-account"
-    storage_account_name = "andwilstorageaccount"
+    resource_group_name  = "rg-base"
+    storage_account_name = "saandreaswilsonstate"
     container_name       = "tfstate"
     key                  = "terraform.tfstate"
+    use_azuread_auth     = true
   }
 }
