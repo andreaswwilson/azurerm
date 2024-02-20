@@ -16,7 +16,13 @@ permissions:
 jobs:
   deploy-infrastructure:
     runs-on: ubuntu-latest
-
+    env:
+      STORAGE_ACCOUNT: ${{ vars.STORAGE_ACCOUNT }}
+      CONTAINER_NAME: ${{ vars.CONTAINER_NAME }}
+      RESOURCE_GROUP_NAME: ${{ vars.RESOURCE_GROUP_NAME }}
+      ARM_CLIENT_ID: ${{ vars.CLIENT_ID }}
+      ARM_SUBSCRIPTION_ID: ${{ vars.SUBSCRIPTION_ID }}
+      ARM_TENANT_ID: ${{ vars.TENANT_ID }}
     steps:
       # Checkout the repository to the GitHub Actions runner
       - name: Checkout
@@ -39,19 +45,12 @@ jobs:
         run: |
           az account show
 
-      # - name: Terraform fmt
-      #   id: fmt
-      #   run: terraform fmt -check -no-color
-      #   continue-on-error: false
+      - name: Terraform fmt
+        id: fmt
+        run: terraform fmt -check -no-color
+        continue-on-error: false
 
       # Run Terraform init
       - name: Terraform Init
         id: init
-        env:
-          STORAGE_ACCOUNT: ${{ vars.STORAGE_ACCOUNT }}
-          CONTAINER_NAME: ${{ vars.CONTAINER_NAME }}
-          RESOURCE_GROUP_NAME: ${{ vars.RESOURCE_GROUP_NAME }}
-          ARM_CLIENT_ID: ${{ vars.CLIENT_ID }}
-          ARM_SUBSCRIPTION_ID: ${{ vars.SUBSCRIPTION_ID }}
-          ARM_TENANT_ID: ${{ vars.TENANT_ID }}
         run: terraform init -backend-config="storage_account_name=$STORAGE_ACCOUNT" -backend-config="container_name=$CONTAINER_NAME" -backend-config="resource_group_name=$RESOURCE_GROUP_NAME"
