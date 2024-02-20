@@ -1,15 +1,20 @@
 ---
 name: Deploy Terraform
+
 on:
   push:
     branches:
       - main
+
+env:
+  TF_LOG: INFO
+
 permissions:
   id-token: write # This is required for requesting the JWT
   contents: read # This is required for actions/checkout
+
 jobs:
-  tf:
-    name: Terraform
+  deploy-infrastructure:
     runs-on: ubuntu-latest
 
     steps:
@@ -20,6 +25,7 @@ jobs:
       # Install the latest version of Terraform CLI
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2
+
       # Log into Azure with OIDC integration
       - name: "Az CLI login"
         uses: azure/login@v1

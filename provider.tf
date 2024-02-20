@@ -17,10 +17,8 @@ provider "azurerm" {
 
 terraform {
   backend "azurerm" {
-    resource_group_name  = "rg-base"
-    storage_account_name = "saandreaswilsonstate"
-    container_name       = "tfstate"
-    key                  = "terraform.tfstate"
-    use_azuread_auth     = true
+    key              = "terraform.tfstate"
+    use_azuread_auth = true
+    use_oicd         = true
   }
 }
