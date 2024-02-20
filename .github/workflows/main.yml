@@ -41,10 +41,10 @@ jobs:
       - name: Terraform Init
         id: init
         env:
-          STORAGE_ACCOUNT: ${{ var.STORAGE_ACCOUNT }}
-          CONTAINER_NAME: ${{ var.CONTAINER_NAME }}
-          RESOURCE_GROUP_NAME: ${{ var.RESOURCE_GROUP_NAME }}
-          ARM_CLIENT_ID: ${{ var.CLIENT_ID }}
-          ARM_SUBSCRIPTION_ID: ${{ var.SUBSCRIPTION_ID }}
-          ARM_TENANT_ID: ${{ var.TENANT_ID }}
+          STORAGE_ACCOUNT: ${{ vars.STORAGE_ACCOUNT }}
+          CONTAINER_NAME: ${{ vars.CONTAINER_NAME }}
+          RESOURCE_GROUP_NAME: ${{ vars.RESOURCE_GROUP_NAME }}
+          ARM_CLIENT_ID: ${{ vars.CLIENT_ID }}
+          ARM_SUBSCRIPTION_ID: ${{ vars.SUBSCRIPTION_ID }}
+          ARM_TENANT_ID: ${{ vars.TENANT_ID }}
         run: terraform init -backend-config="storage_account_name=$STORAGE_ACCOUNT" -backend-config="container_name=$CONTAINER_NAME" -backend-config="resource_group_name=$RESOURCE_GROUP_NAME"
