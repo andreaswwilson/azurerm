@@ -11,16 +11,29 @@ jobs:
   tf:
     name: Terraform
     runs-on: ubuntu-latest
+
+    env:
+      ARM_CLIENT_ID: ${{ vars.CLIENT_ID }}
+      ARM_SUBSCRIPTION_ID: ${{ vars.SUBSCRIPTION_ID}}
+      ARM_TENANT_ID: ${{ vars.TENANT_ID}}
+      ARM_USE_OIDC: true
+
     steps:
+      # Checkout the repository to the GitHub Actions runner
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      # Install the latest version of Terraform CLI
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+      # Log into Azure with OIDC integration
       - name: "Az CLI login"
         uses: azure/login@v1
-        with:
-          client-id: ${{ vars.CLIENT_ID }}
-          tenant-id: ${{ vars.TENANT_ID }}
-          subscription-id: ${{ vars.SUBSCRIPTION_ID }}
 
-      - uses: actions/checkout@v3
-      - uses: hashicorp/setup-terraform@v2
+      # Run az commands to confirm sub access
+      - name: "Run az commands"
+        run: |
+          az account show
 
       - name: Terraform fmt
         id: fmt
