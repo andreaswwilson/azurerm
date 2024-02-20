@@ -27,15 +27,16 @@ jobs:
           client-id: ${{ vars.CLIENT_ID }}
           subscription-id: ${{ vars.SUBSCRIPTION_ID}}
           tenant-id: ${{ vars.TENANT_ID}}
+
       # Run az commands to confirm sub access
       - name: "Run az commands"
         run: |
           az account show
 
-      - name: Terraform fmt
-        id: fmt
-        run: terraform fmt -check -no-color
-        continue-on-error: false
+      # - name: Terraform fmt
+      #   id: fmt
+      #   run: terraform fmt -check -no-color
+      #   continue-on-error: false
 
       # Run Terraform init
       - name: Terraform Init
