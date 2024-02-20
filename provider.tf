@@ -20,6 +20,6 @@ terraform {
   backend "azurerm" {
     key              = "terraform.tfstate"
     use_azuread_auth = true
-    use_oicd         = true
+    use_oidc         = true
   }
 }
