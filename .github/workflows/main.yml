@@ -2,6 +2,16 @@
 name: Deploy Terraform
 
 on:
+  workflow_dispatch:
+    inputs:
+      terraform_operation:
+        description: "Terraform operation: apply or destroy"
+        required: true
+        default: "apply"
+        type: choice
+        options:
+          - apply
+          - destroy
   push:
     branches:
       - main
@@ -67,5 +77,5 @@ jobs:
 
       - name: Terraform Apply
         id: apply
-        if: github.ref == 'refs/heads/main'
+        if: ${{ github.ref == 'refs/heads/main' && github.event.inputs.terraform_operation == 'apply' }}
         run: terraform apply -input=false tf.plan
