@@ -63,7 +63,7 @@ jobs:
 
         # You can override MegaLinter flavor used to have faster performances
         # More info at https://megalinter.io/flavors/
-        uses: oxsecurity/megalinter-terraform@v7
+        uses: oxsecurity/megalinter@v7
 
         id: ml
 
