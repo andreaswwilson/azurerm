@@ -34,6 +34,8 @@ jobs:
           client-id: ${{ vars.CLIENT_ID }}
           subscription-id: ${{ vars.SUBSCRIPTION_ID}}
           tenant-id: ${{ vars.TENANT_ID}}
-
+      - name: Terraform Init
+        id: init
+        run: terraform init -backend-config="storage_account_name=$STORAGE_ACCOUNT" -backend-config="container_name=$CONTAINER_NAME" -backend-config="resource_group_name=$RESOURCE_G
       - name: Terraform destroy
         run: terraform destroy --auto-approve

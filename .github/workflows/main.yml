@@ -1,7 +1,10 @@
 ---
 name: Deploy Terraform
 
-on: [push]
+on:
+  pull_request:
+    branches:
+      - main
 
 permissions:
   id-token: write # This is required for requesting the JWT
@@ -33,11 +36,6 @@ jobs:
           client-id: ${{ vars.CLIENT_ID }}
           subscription-id: ${{ vars.SUBSCRIPTION_ID}}
           tenant-id: ${{ vars.TENANT_ID}}
-
-      # Run az commands to confirm sub access
-      - name: "Run az commands"
-        run: |
-          az account show
 
       - name: Terraform fmt
         id: fmt
