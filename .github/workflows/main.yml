@@ -3,7 +3,8 @@ name: Deploy Terraform
 
 on:
   pull_request:
-    types: [opened, reopened]
+    branches:
+      - main
 
 permissions:
   id-token: write # This is required for requesting the JWT
