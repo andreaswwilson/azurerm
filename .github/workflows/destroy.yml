@@ -9,7 +9,7 @@ permissions:
   contents: read # This is required for actions/checkout
 
 jobs:
-  deploy-infrastructure:
+  destroy-infrastructure:
     runs-on: ubuntu-latest
     env:
       STORAGE_ACCOUNT: ${{ vars.STORAGE_ACCOUNT }}
